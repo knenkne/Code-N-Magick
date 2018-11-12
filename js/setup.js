@@ -1,7 +1,4 @@
 'use strict';
-var setup = document.querySelector('.setup');
-setup.classList.remove('hidden');
-
 document.querySelector('.setup-similar').classList.remove('hidden');
 
 var similarListElement = document.querySelector('.setup-similar-list');
@@ -89,3 +86,25 @@ for (var i = 0; i < wizards.length; i++) {
 }
 
 similarListElement.appendChild(fragment);
+
+var setup = document.querySelector('.setup');
+var open = document.querySelector('.setup-open');
+var close = setup.querySelector('.setup-close');
+var wizard = setup.querySelector('.setup-wizard');
+var coat = wizard.querySelector('.wizard-coat');
+
+setup.classList.remove('hidden');
+
+open.addEventListener('click', function () {
+  setup.classList.remove('hidden');
+});
+
+close.addEventListener('click', function () {
+  setup.classList.add('hidden');
+});
+
+coat.addEventListener('click', function () {
+  var j = 2;
+  j++;
+  coat.style.fill = COAT_COLORS[j];
+});
