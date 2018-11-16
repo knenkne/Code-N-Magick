@@ -19,14 +19,17 @@ var TEXT = {
   padding: 17,
   firstMessage: 'Ура вы победили!',
   secondMessage: 'Список результатов:',
-  gap: 10
+  gap: 10,
+  x: 265,
+  y: 10,
+  height: 40
 };
 
 var BAR = {
   height: 150,
   width: 40,
-  gap: 48,
-  color: 'rgba(255, 0, 0, 1)'
+  gap: 66,
+  color: ['rgba(255, 0, 0, 1)', 'rgba(0, 0, 255, 0.9)', 'rgba(0, 0, 255, 0.7)', 'rgba(0, 0, 255, 0.4)']
 };
 
 var renderRect = function (ctx, x, y, color, width, height) {
@@ -39,7 +42,7 @@ var renderText = function (ctx, x, y, padding, color, font, firstMessage, second
   ctx.font = font;
   ctx.textBaseline = 'hanging';
   ctx.fillText(firstMessage, x + padding, y + padding);
-  ctx.fillText(secondMessage, x + padding, y + padding * 2);
+  ctx.fillText(secondMessage, x, y + padding * 2);
 };
 
 var renderName = function (ctx, x, y, color, font, name, gap) {
@@ -49,8 +52,19 @@ var renderName = function (ctx, x, y, color, font, name, gap) {
   ctx.fillText(name, x, y + gap);
 };
 
-window.renderStatistics = function (ctx, names) {
-  names = ['Вы', 'Вика', 'Данил', 'Люся', 'Пётр'];
+var getMaxElement = function (array) {
+  var maxElement = array[0];
+  for (var i = 1; i < array.length; i++) {
+    if (array[i] > maxElement) {
+      maxElement = array[i];
+    }
+  }
+  return maxElement;
+};
+
+window.renderStatistics = function (ctx, names, times) {
+  names = ['Вы', 'Вика', 'Данил', 'Люся'];
+  var maxTime = getMaxElement(times);
 
   // Тень
   renderRect(ctx, CLOUD.x + SHADOW.size, CLOUD.y + SHADOW.size, SHADOW.color, CLOUD.width, CLOUD.height);
@@ -59,11 +73,32 @@ window.renderStatistics = function (ctx, names) {
   renderRect(ctx, CLOUD.x, CLOUD.y, CLOUD.color, CLOUD.width, CLOUD.height);
 
   // Сообщение
-  renderText(ctx, CLOUD.x, CLOUD.y, TEXT.padding, TEXT.color, TEXT.font, 'Ура вы победили!', 'Список результатов:');
+  renderText(ctx, TEXT.x, CLOUD.y, TEXT.padding, TEXT.color, TEXT.font, 'Ура вы победили!', 'Список результатов:');
 
   // Гистограмма
   for (var i = 0; i < names.length; i++) {
-    renderRect(ctx, CLOUD.x + BAR.gap * (i + 1) + BAR.width * i, CLOUD.y + CLOUD.height - BAR.height - BAR.gap, BAR.color, BAR.width, BAR.height);
-    renderName(ctx, CLOUD.x + BAR.gap * (i + 1) + BAR.width * i, CLOUD.y + CLOUD.height - BAR.gap, TEXT.color, TEXT.font, names[i], TEXT.gap);
+    var calculateX = function () {
+      var x = CLOUD.x + BAR.gap * (i + 1) + BAR.width * i;
+      return x;
+    };
+
+    var calculateY = function () {
+      var y = CLOUD.y + CLOUD.height - TEXT.height;
+      return y;
+    };
+
+    var barHeight = function () {
+      var height = -(BAR.height * times[i]) / maxTime;
+      return height;
+    };
+
+    // Столбец
+    renderRect(ctx, calculateX(), calculateY(), BAR.color[i], BAR.width, barHeight());
+
+    // Имя
+    renderName(ctx, calculateX(), calculateY(), TEXT.color, TEXT.font, names[i], TEXT.gap);
+
+    // Результат
+    renderName(ctx, calculateX(), CLOUD.height - TEXT.height + barHeight(), TEXT.color, TEXT.font, Math.round(times[i]), -TEXT.gap);
   }
 };
