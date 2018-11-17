@@ -29,7 +29,8 @@ var BAR = {
   height: 150,
   width: 40,
   gap: 66,
-  color: ['rgba(255, 0, 0, 1)', 'rgba(0, 0, 255, 0.9)', 'rgba(0, 0, 255, 0.7)', 'rgba(0, 0, 255, 0.4)']
+  userColor: 'rgba(255, 0, 0, 1)',
+  enemyColor: 'rgba(0, 0, 255, '
 };
 
 var renderRect = function (ctx, x, y, color, width, height) {
@@ -50,6 +51,10 @@ var renderName = function (ctx, x, y, color, font, name, gap) {
   ctx.font = font;
   ctx.textBaseline = 'hanging';
   ctx.fillText(name, x, y + gap);
+};
+
+var getRandomColor = function () {
+  return BAR.enemyColor + Math.random();
 };
 
 var getMaxElement = function (array) {
@@ -78,27 +83,28 @@ window.renderStatistics = function (ctx, names, times) {
   // Гистограмма
   for (var i = 0; i < names.length; i++) {
     var calculateX = function () {
-      var x = CLOUD.x + BAR.gap * (i + 1) + BAR.width * i;
-      return x;
+      return CLOUD.x + BAR.gap * (i + 1) + BAR.width * i;
     };
 
     var calculateY = function () {
-      var y = CLOUD.y + CLOUD.height - TEXT.height;
-      return y;
+      return CLOUD.y + CLOUD.height - TEXT.height;
     };
 
-    var barHeight = function () {
-      var height = -(BAR.height * times[i]) / maxTime;
-      return height;
+    var getBarHeight = function () {
+      return -(BAR.height * times[i]) / maxTime;
     };
 
     // Столбец
-    renderRect(ctx, calculateX(), calculateY(), BAR.color[i], BAR.width, barHeight());
+    if (i === 0) {
+      renderRect(ctx, calculateX(), calculateY(), BAR.userColor, BAR.width, getBarHeight());
+    } else {
+      renderRect(ctx, calculateX(), calculateY(), getRandomColor(), BAR.width, getBarHeight());
+    }
 
     // Имя
     renderName(ctx, calculateX(), calculateY(), TEXT.color, TEXT.font, names[i], TEXT.gap);
 
     // Результат
-    renderName(ctx, calculateX(), CLOUD.height - TEXT.height + barHeight(), TEXT.color, TEXT.font, Math.round(times[i]), -TEXT.gap);
+    renderName(ctx, calculateX(), CLOUD.height - TEXT.height + getBarHeight(), TEXT.color, TEXT.font, Math.round(times[i]), -TEXT.gap);
   }
 };
