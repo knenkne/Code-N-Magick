@@ -5,7 +5,8 @@ var CLOUD = {
   width: 490,
   color: '#fff',
   x: 110,
-  y: 10
+  y: 10,
+  step: 90
 };
 
 var SHADOW = {
@@ -17,8 +18,7 @@ var TEXT = {
   color: '#000',
   font: '16px PT Mono',
   padding: 17,
-  firstMessage: 'Ура вы победили!',
-  secondMessage: 'Список результатов:',
+  messages: ['Ура вы победили!', 'Список результатов:'],
   gap: 10,
   x: 265,
   y: 10,
@@ -38,12 +38,29 @@ var renderRect = function (ctx, x, y, color, width, height) {
   ctx.fillRect(x, y, width, height);
 };
 
-var renderText = function (ctx, x, y, padding, color, font, firstMessage, secondMessage) {
+var renderCloud = function (ctx, x, y, color, width, height, stepHeight) {
+  var steps = height / stepHeight;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  for (var i = 0; i < steps; i++) {
+    ctx.quadraticCurveTo(x * 0.8, y + stepHeight * i + stepHeight / 2, x, y + stepHeight * i + stepHeight);
+  }
+  ctx.lineTo(width + x, height + y);
+  for (var j = steps; j > 0; j--) {
+    ctx.quadraticCurveTo(width + x * 1.2, y + stepHeight * j - stepHeight / 2, width + x, y + stepHeight * j - stepHeight);
+  }
+  ctx.lineTo(x, y);
+  ctx.fill();
+};
+
+var renderText = function (ctx, x, y, padding, color, font, messages) {
   ctx.fillStyle = color;
   ctx.font = font;
   ctx.textBaseline = 'hanging';
-  ctx.fillText(firstMessage, x + padding, y + padding);
-  ctx.fillText(secondMessage, x, y + padding * 2);
+  for (var i = 0; i < messages.length; i++) {
+    ctx.fillText(messages[i], x + padding, y + padding * (i + 1));
+  }
 };
 
 var renderName = function (ctx, x, y, color, font, name, gap) {
@@ -68,17 +85,16 @@ var getMaxElement = function (array) {
 };
 
 window.renderStatistics = function (ctx, names, times) {
-  names = ['Вы', 'Вика', 'Данил', 'Люся'];
   var maxTime = getMaxElement(times);
 
   // Тень
-  renderRect(ctx, CLOUD.x + SHADOW.size, CLOUD.y + SHADOW.size, SHADOW.color, CLOUD.width, CLOUD.height);
+  renderCloud(ctx, CLOUD.x + SHADOW.size, CLOUD.y + SHADOW.size, SHADOW.color, CLOUD.width, CLOUD.height, CLOUD.step);
 
   // Облако
-  renderRect(ctx, CLOUD.x, CLOUD.y, CLOUD.color, CLOUD.width, CLOUD.height);
+  renderCloud(ctx, CLOUD.x, CLOUD.y, CLOUD.color, CLOUD.width, CLOUD.height, CLOUD.step);
 
   // Сообщение
-  renderText(ctx, TEXT.x, CLOUD.y, TEXT.padding, TEXT.color, TEXT.font, 'Ура вы победили!', 'Список результатов:');
+  renderText(ctx, TEXT.x, CLOUD.y, TEXT.padding, TEXT.color, TEXT.font, TEXT.messages);
 
   // Гистограмма
   for (var i = 0; i < names.length; i++) {
@@ -95,7 +111,7 @@ window.renderStatistics = function (ctx, names, times) {
     };
 
     // Столбец
-    if (i === 0) {
+    if (names[i] === 'Вы') {
       renderRect(ctx, calculateX(), calculateY(), BAR.userColor, BAR.width, getBarHeight());
     } else {
       renderRect(ctx, calculateX(), calculateY(), getRandomColor(), BAR.width, getBarHeight());
