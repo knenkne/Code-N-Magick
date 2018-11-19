@@ -46,7 +46,8 @@ var renderCloud = function (ctx, x, y, color, width, height, stepHeight) {
   for (var i = 0; i < steps; i++) {
     ctx.quadraticCurveTo(x * 0.8, y + stepHeight * i + stepHeight / 2, x, y + stepHeight * i + stepHeight);
   }
-  ctx.lineTo(width + x, height + y);
+  ctx.lineTo(x + (width / 2), y + (height * 0.96));
+  ctx.lineTo(x + width, y + height);
   for (var j = steps; j > 0; j--) {
     ctx.quadraticCurveTo(width + x * 1.2, y + stepHeight * j - stepHeight / 2, width + x, y + stepHeight * j - stepHeight);
   }
