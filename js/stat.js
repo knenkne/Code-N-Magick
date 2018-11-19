@@ -70,8 +70,8 @@ var renderName = function (ctx, x, y, color, font, name, gap) {
   ctx.fillText(name, x, y + gap);
 };
 
-var getRandomColor = function () {
-  return BAR.enemyColor + Math.random();
+var getRandomColor = function (color) {
+  return color + Math.random();
 };
 
 var getMaxElement = function (array) {
@@ -98,6 +98,7 @@ window.renderStatistics = function (ctx, names, times) {
 
   // Гистограмма
   for (var i = 0; i < names.length; i++) {
+    var color = (names[i] !== 'Вы') ? getRandomColor(BAR.enemyColor) : BAR.userColor;
     var calculateX = function () {
       return CLOUD.x + BAR.gap * (i + 1) + BAR.width * i;
     };
@@ -111,11 +112,7 @@ window.renderStatistics = function (ctx, names, times) {
     };
 
     // Столбец
-    if (names[i] === 'Вы') {
-      renderRect(ctx, calculateX(), calculateY(), BAR.userColor, BAR.width, getBarHeight());
-    } else {
-      renderRect(ctx, calculateX(), calculateY(), getRandomColor(), BAR.width, getBarHeight());
-    }
+    renderRect(ctx, calculateX(), calculateY(), color, BAR.width, getBarHeight());
 
     // Имя
     renderName(ctx, calculateX(), calculateY(), TEXT.color, TEXT.font, names[i], TEXT.gap);
