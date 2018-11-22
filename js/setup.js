@@ -1,7 +1,6 @@
 'use strict';
 
 var MAX_WIZARDS = 4;
-var WIZARDS = [];
 var WIZARD_PARAMS =
   {
     name: [
@@ -60,8 +59,7 @@ var renderWizard = function (wizard) {
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < MAX_WIZARDS; i++) {
-  WIZARDS.push(renderWizard(WIZARD_PARAMS));
-  fragment.appendChild(WIZARDS[i]);
+  fragment.appendChild(renderWizard(WIZARD_PARAMS));
 }
 
 similarListElement.appendChild(fragment);
