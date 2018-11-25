@@ -34,7 +34,14 @@ var WIZARD_PARAMS =
       'red',
       'blue',
       'yellow',
-      'green'
+      'green',
+    ],
+    fireball: [
+      '#ee4830',
+      '#30a8ee',
+      '#5ce6c0',
+      '#e848d5',
+      '#e6e848'
     ]
   };
 
@@ -42,7 +49,6 @@ var getRandomElement = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-document.querySelector('.setup').classList.remove('hidden');
 document.querySelector('.setup-similar').classList.remove('hidden');
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -63,3 +69,27 @@ for (var i = 0; i < MAX_WIZARDS; i++) {
 }
 
 similarListElement.appendChild(fragment);
+
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+var wizardSetup = setup.querySelector('.setup-wizard');
+var wizardCoat = wizardSetup.querySelector('.wizard-coat');
+
+var setupToggle = function () {
+  setup.classList.toggle('hidden');
+};
+
+setupOpen.addEventListener('click', function () {
+  setupToggle();
+});
+
+setupClose.addEventListener('click', function () {
+  setupToggle();
+});
+
+wizardCoat.addEventListener('click', function () {
+  for (var j = 0; j < WIZARD_PARAMS.coat.length; j++) {
+    wizardCoat.style.fill = WIZARD_PARAMS.coat[j];
+  }
+});
