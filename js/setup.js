@@ -70,26 +70,48 @@ for (var i = 0; i < MAX_WIZARDS; i++) {
 
 similarListElement.appendChild(fragment);
 
+// Events
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
+var setupOpenIcon = document.querySelector('.setup-open-icon');
 var setupClose = setup.querySelector('.setup-close');
+var setupUserName = setup.querySelector('.setup-user-name');
 var wizardSetup = setup.querySelector('.setup-wizard');
 var wizardCoat = wizardSetup.querySelector('.wizard-coat');
 
-var setupToggle = function () {
-  setup.classList.toggle('hidden');
-};
-
+setup.classList.remove('hidden');
 setupOpen.addEventListener('click', function () {
-  setupToggle();
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 27 || !setupUserName.focus) {
+      setup.classList.add('hidden');
+    }
+  });
+});
+
+setupOpenIcon.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    setup.classList.remove('hidden');
+  }
+  if (evt.keyCode === 27 || !setupUserName.focus) {
+    setup.classList.add('hidden');
+  }
 });
 
 setupClose.addEventListener('click', function () {
-  setupToggle();
+  setup.classList.add('hidden');
 });
 
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    setup.classList.add('hidden');
+  }
+});
+
+
+var currentColor = WIZARD_PARAMS.coat[0];
 wizardCoat.addEventListener('click', function () {
-  for (var j = 0; j < WIZARD_PARAMS.coat.length; j++) {
-    wizardCoat.style.fill = WIZARD_PARAMS.coat[j];
+  if (currentColor === WIZARD_PARAMS.coat[0]) {
+    wizardCoat.style.fill = WIZARD_PARAMS.coat[1];
   }
 });
