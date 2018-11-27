@@ -1,5 +1,7 @@
 'use strict';
 
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 var MAX_WIZARDS = 4;
 var WIZARD_PARAMS =
   {
@@ -86,32 +88,38 @@ var wizardCoat = wizardSetup.querySelector('.wizard-coat');
 var wizardEyes = wizardSetup.querySelector('.wizard-eyes');
 var wizardFireball = document.querySelector('.setup-fireball-wrap');
 
-setup.classList.remove('hidden');
-setupOpen.addEventListener('click', function () {
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE && !setupUserName.focus) {
+    hidePopup();
+  }
+};
+
+var showPopup = function () {
   setup.classList.remove('hidden');
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 27 || !setupUserName.focus) {
-      setup.classList.add('hidden');
-    }
-  });
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var hidePopup = function () {
+  setup.classList.add('hidden');
+};
+
+setupOpen.addEventListener('click', function () {
+  showPopup();
 });
 
 setupOpenIcon.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
-    setup.classList.remove('hidden');
-  }
-  if (evt.keyCode === 27 || !setupUserName.focus) {
-    setup.classList.add('hidden');
+  if (evt.keyCode === ENTER_KEYCODE) {
+    showPopup();
   }
 });
 
 setupClose.addEventListener('click', function () {
-  setup.classList.add('hidden');
+  hidePopup();
 });
 
 setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
-    setup.classList.add('hidden');
+  if (evt.keyCode === ENTER_KEYCODE) {
+    hidePopup();
   }
 });
 
