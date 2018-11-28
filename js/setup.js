@@ -36,7 +36,7 @@ var WIZARD_PARAMS =
       'red',
       'blue',
       'yellow',
-      'green',
+      'green'
     ],
     fireball: [
       '#ee4830',
@@ -45,13 +45,12 @@ var WIZARD_PARAMS =
       '#e848d5',
       '#e6e848'
     ],
-    colorsIndex: {
-      coat: 0,
-      eyes: 0,
-      fireball: 0
-    }
   };
-
+var colorsIndex = {
+  coat: 0,
+  eyes: 0,
+  fireball: 0
+};
 var getRandomElement = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
@@ -125,28 +124,23 @@ setupClose.addEventListener('keydown', function (evt) {
 
 
 var switchToNextColor = function (colors, colorNumber) {
-  if (colorNumber + 1 === colors.length) {
+  if (++colorNumber === colors.length) {
     colorNumber = 0;
-  } else {
-    colorNumber++;
   }
   return colorNumber;
 };
 
 wizardCoat.addEventListener('click', function () {
-  WIZARD_PARAMS.colorsIndex.coat = switchToNextColor(WIZARD_PARAMS.coat, WIZARD_PARAMS.colorsIndex.coat);
-  wizardCoat.style.fill = WIZARD_PARAMS.coat[WIZARD_PARAMS.colorsIndex.coat];
-  return WIZARD_PARAMS.colorsIndex.coat;
+  colorsIndex.coat = switchToNextColor(WIZARD_PARAMS.coat, colorsIndex.coat);
+  wizardCoat.style.fill = WIZARD_PARAMS.coat[colorsIndex.coat];
 });
 
 wizardEyes.addEventListener('click', function () {
-  WIZARD_PARAMS.colorsIndex.eyes = switchToNextColor(WIZARD_PARAMS.eyes, WIZARD_PARAMS.colorsIndex.eyes);
-  wizardEyes.style.fill = WIZARD_PARAMS.eyes[WIZARD_PARAMS.colorsIndex.eyes];
-  return WIZARD_PARAMS.colorsIndex.eyes;
+  colorsIndex.eyes = switchToNextColor(WIZARD_PARAMS.eyes, colorsIndex.eyes);
+  wizardEyes.style.fill = WIZARD_PARAMS.eyes[colorsIndex.eyes];
 });
 
 wizardFireball.addEventListener('click', function () {
-  WIZARD_PARAMS.colorsIndex.fireball = switchToNextColor(WIZARD_PARAMS.fireball, WIZARD_PARAMS.colorsIndex.fireball);
-  wizardFireball.style.backgroundColor = WIZARD_PARAMS.fireball[WIZARD_PARAMS.colorsIndex.fireball];
-  return WIZARD_PARAMS.colorsIndex.fireball;
+  colorsIndex.fireball = switchToNextColor(WIZARD_PARAMS.fireball, colorsIndex.fireball);
+  wizardFireball.style.backgroundColor = WIZARD_PARAMS.fireball[colorsIndex.fireball];
 });
