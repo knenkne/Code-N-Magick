@@ -1,5 +1,9 @@
 'use strict';
 
+var SETUP = {
+  top: '80px',
+  left: '50%'
+};
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 var MAX_WIZARDS = 4;
@@ -87,9 +91,15 @@ var wizardCoat = wizardSetup.querySelector('.wizard-coat');
 var wizardEyes = wizardSetup.querySelector('.wizard-eyes');
 var wizardFireball = document.querySelector('.setup-fireball-wrap');
 
+var setDefaultPosition = function () {
+  setup.style.top = SETUP.top;
+  setup.style.left = SETUP.left;
+};
+
 var onPopupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE && document.activeElement !== setupUserName) {
     hidePopup();
+    setDefaultPosition();
   }
 };
 
@@ -114,11 +124,13 @@ setupOpenIcon.addEventListener('keydown', function (evt) {
 
 setupClose.addEventListener('click', function () {
   hidePopup();
+  setDefaultPosition();
 });
 
 setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     hidePopup();
+    setDefaultPosition();
   }
 });
 
