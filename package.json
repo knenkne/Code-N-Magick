@@ -11,13 +11,18 @@
     "url": "https://github.com/htmlacademy-javascript/619205-code-and-magick/issues"
   },
   "devDependencies": {
-    "eslint": "^5.7.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^5.11.1",
     "eslint-config-htmlacademy": "^0.5.2"
   },
   "license": "MIT",
   "dependencies": {},
   "scripts": {
-    "test": "eslint js/"
+    "test": "eslint js/",
+    "build": "babel js -d babel --presets es2015",
+    "watch": "babel js -d babel --presets es2015 -w"
   },
   "engines": {
     "node": "8.11"
