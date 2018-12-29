@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var fireballSize = 22;
 var getFireballSpeed = function getFireballSpeed(left) {
