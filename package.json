@@ -11,20 +11,33 @@
     "url": "https://github.com/htmlacademy-javascript/619205-code-and-magick/issues"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "eslint": "^5.11.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-htmlacademy": "^0.5.2",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "path": "^0.12.7",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.14"
   },
   "license": "MIT",
   "dependencies": {},
   "scripts": {
+    "dev": "webpack-dev-server --mode development --open",
     "test": "eslint js/",
-    "build": "babel js -d babel --presets es2015",
-    "watch": "babel js -d babel --presets es2015 -w"
+    "build": "webpack -w",
+    "watch": "babel js -d src --presets es2015 -w"
   },
   "engines": {
     "node": "8.11"
