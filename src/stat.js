@@ -110,4 +110,3 @@ window.renderStatistics = (ctx, names, times) => {
     renderName(ctx, calculateX(), CLOUD.height - TEXT.height + getBarHeight(), TEXT.color, TEXT.font, Math.round(times[i]), -TEXT.gap);
   }
 };
-

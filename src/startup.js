@@ -1,4 +1,4 @@
-const fireballSize = 22;
+const fireballSize = 50;
 const getFireballSpeed = (left) => left ? 5 : 2;
 const wizardSpeed = 3;
 const wizardWidth = 70;

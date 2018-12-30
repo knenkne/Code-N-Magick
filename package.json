@@ -40,6 +40,6 @@
     "watch": "babel js -d src --presets es2015 -w"
   },
   "engines": {
-    "node": "8.11"
+    "node": "9.11"
   }
 }
