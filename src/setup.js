@@ -38,13 +38,26 @@ const WIZARD_PARAMS =
     ]
   };
 
-
+const setup = document.querySelector(`.setup`);
+const openButton = document.querySelector(`.setup-open`);
+const closeButton = setup.querySelector(`.setup-close`);
 const wizardTemplate = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
 const wizardsList = document.querySelector(`.setup-similar-list`);
 
-document.querySelector(`.setup`).classList.remove(`hidden`);
+
 document.querySelector(`.setup-similar`).classList.remove(`hidden`);
 
+
+const onOpenButtonOpen = () => {
+  setup.classList.remove(`hidden`);
+};
+
+const onCloseButtonClose = () => {
+  setup.classList.add(`hidden`);
+};
+
+openButton.addEventListener(`click`, onOpenButtonOpen);
+closeButton.addEventListener(`click`, onCloseButtonClose);
 
 const renderWizard = (params) => {
   const wizardElement = wizardTemplate.cloneNode(true);
