@@ -1,4 +1,5 @@
 import {getRandomArrayElement} from './utils';
+import {KeyCodes} from './data';
 
 const MAX_WIZARDS = 4;
 const WIZARD_PARAMS =
@@ -44,21 +45,31 @@ const closeButton = setup.querySelector(`.setup-close`);
 const wizardTemplate = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
 const wizardsList = document.querySelector(`.setup-similar-list`);
 
-
-document.querySelector(`.setup-similar`).classList.remove(`hidden`);
-
-
+// Events
 const onOpenButtonOpen = () => {
   setup.classList.remove(`hidden`);
+  document.addEventListener(`keydown`, onSetupEscPress);
 };
 
 const onCloseButtonClose = () => {
   setup.classList.add(`hidden`);
 };
 
+const onSetupEscPress = (evt) => {
+  if (evt.keyCode === KeyCodes.ESC) {
+    onCloseButtonClose();
+  }
+};
+
 openButton.addEventListener(`click`, onOpenButtonOpen);
+openButton.addEventListener(`keydown`, (evt) => {
+  if (evt.keyCode === KeyCodes.ENTER) {
+    onOpenButtonOpen();
+  }
+});
 closeButton.addEventListener(`click`, onCloseButtonClose);
 
+// Mock
 const renderWizard = (params) => {
   const wizardElement = wizardTemplate.cloneNode(true);
 
