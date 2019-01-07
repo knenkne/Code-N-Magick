@@ -40,10 +40,12 @@ const WIZARD_PARAMS =
   };
 
 const setup = document.querySelector(`.setup`);
+const wizardSetup = setup.querySelector(`.setup-wizard`);
 const openButton = document.querySelector(`.setup-open`);
 const closeButton = setup.querySelector(`.setup-close`);
 const wizardTemplate = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
 const wizardsList = document.querySelector(`.setup-similar-list`);
+const wizardCoat = wizardSetup.querySelector(`.wizard-coat`);
 
 // Events
 const onOpenButtonOpen = () => {
@@ -51,6 +53,7 @@ const onOpenButtonOpen = () => {
   document.addEventListener(`keydown`, onSetupEscPress);
 };
 
+onOpenButtonOpen();
 const onCloseButtonClose = () => {
   setup.classList.add(`hidden`);
 };
@@ -68,6 +71,17 @@ openButton.addEventListener(`keydown`, (evt) => {
   }
 });
 closeButton.addEventListener(`click`, onCloseButtonClose);
+
+let coatColorIndex = 0;
+const onCoatColorChange = () => {
+  if (coatColorIndex === WIZARD_PARAMS.coat.length - 1) {
+    coatColorIndex = 0;
+  } else {
+    ++coatColorIndex;
+  }
+  wizardCoat.style.fill = WIZARD_PARAMS.coat[coatColorIndex];
+};
+wizardCoat.addEventListener(`click`, onCoatColorChange);
 
 // Mock
 const renderWizard = (params) => {
