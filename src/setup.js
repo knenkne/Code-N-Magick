@@ -72,16 +72,30 @@ openButton.addEventListener(`keydown`, (evt) => {
 });
 closeButton.addEventListener(`click`, onCloseButtonClose);
 
+/*
 let coatColorIndex = 0;
-const onCoatColorChange = () => {
-  if (coatColorIndex === WIZARD_PARAMS.coat.length - 1) {
-    coatColorIndex = 0;
+const onItemColorChange = (itemColorIndex, colors) => {
+  if (itemColorIndex === colors.length - 1) {
+    itemColorIndex = 0;
   } else {
-    ++coatColorIndex;
+    ++itemColorIndex;
   }
-  wizardCoat.style.fill = WIZARD_PARAMS.coat[coatColorIndex];
+  wizardCoat.style.fill = colors[itemColorIndex];
 };
-wizardCoat.addEventListener(`click`, onCoatColorChange);
+*/
+let coatColorIndex = 0;
+const switchToNextColor = (colors, colorIndex) => {
+  if (++colorIndex === colors.length) {
+    colorIndex = 0;
+  }
+  return colorIndex;
+};
+
+wizardCoat.addEventListener(`click`, () => {
+  switchToNextColor(WIZARD_PARAMS.coat, coatColorIndex);
+  wizardCoat.style.fill = WIZARD_PARAMS.coat[coatColorIndex];
+  console.log(coatColorIndex);
+});
 
 // Mock
 const renderWizard = (params) => {
