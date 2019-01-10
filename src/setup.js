@@ -38,6 +38,7 @@ const WIZARD_PARAMS =
       `green`
     ]
   };
+let coatColorIndex = 0;
 
 const setup = document.querySelector(`.setup`);
 const wizardSetup = setup.querySelector(`.setup-wizard`);
@@ -72,29 +73,16 @@ openButton.addEventListener(`keydown`, (evt) => {
 });
 closeButton.addEventListener(`click`, onCloseButtonClose);
 
-/*
-let coatColorIndex = 0;
-const onItemColorChange = (itemColorIndex, colors) => {
-  if (itemColorIndex === colors.length - 1) {
+const switchToNextColor = (colors, itemColorIndex) => {
+  if (++itemColorIndex === colors.length) {
     itemColorIndex = 0;
-  } else {
-    ++itemColorIndex;
   }
-  wizardCoat.style.fill = colors[itemColorIndex];
-};
-*/
-let coatColorIndex = 0;
-const switchToNextColor = (colors, colorIndex) => {
-  if (++colorIndex === colors.length) {
-    colorIndex = 0;
-  }
-  return colorIndex;
+  return itemColorIndex;
 };
 
-wizardCoat.addEventListener(`click`, () => {
-  switchToNextColor(WIZARD_PARAMS.coat, coatColorIndex);
+wizardCoat.addEventListener(`click`, function () {
+  coatColorIndex = switchToNextColor(WIZARD_PARAMS.coat, coatColorIndex);
   wizardCoat.style.fill = WIZARD_PARAMS.coat[coatColorIndex];
-  console.log(coatColorIndex);
 });
 
 // Mock
