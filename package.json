@@ -1,17 +1,17 @@
 {
-  "name": "keksobooking",
-  "version": "15.0.0",
+  "name": "code-and-magick",
+  "version": "19.0.0",
   "private": true,
-  "description": "Личный проект «Кексобукинг» от HTML Academy",
+  "description": "Учебный проект «Код и Магия» от HTML Academy",
   "repository": {
     "type": "git",
-    "url": "git@github.com:htmlacademy-javascript/585395-keksobooking.git"
+    "url": "git@github.com:htmlacademy-javascript/976089-code-and-magick-19.git"
   },
   "bugs": {
-    "url": "https://github.com/htmlacademy-javascript/585395-keksobooking/issues"
+    "url": "https://github.com/htmlacademy-javascript/976089-code-and-magick-19/issues"
   },
   "devDependencies": {
-    "eslint": "5.7.0",
+    "eslint": "6.3.0",
     "eslint-config-htmlacademy": "0.5.2"
   },
   "license": "MIT",
