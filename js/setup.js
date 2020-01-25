@@ -19,7 +19,7 @@ function getRandomItem (items) {
 function toggleSetup() {
     setupSimilar.classList.toggle('hidden');
     setup.classList.toggle('hidden');
-}
+};
 
 function getWizardData() {
     return {
@@ -59,7 +59,7 @@ function renderWizards(data, container) {
     });
 
     container.appendChild(fragment);
-}
+};
 
 var wizardsData = getWizardsData(WIZARDS_AMOUNT);
 toggleSetup();
